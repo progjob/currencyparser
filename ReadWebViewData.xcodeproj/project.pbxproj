@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96CD28D21F6ADCA600E0EC3B /* page.html in Resources */ = {isa = PBXBuildFile; fileRef = 96CD28D11F6ADCA600E0EC3B /* page.html */; };
+		96CD28DA1F6AE58D00E0EC3B /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CD28D51F6AE58D00E0EC3B /* TFHpple.m */; };
+		96CD28DB1F6AE58D00E0EC3B /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CD28D71F6AE58D00E0EC3B /* TFHppleElement.m */; };
+		96CD28DC1F6AE58D00E0EC3B /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CD28D91F6AE58D00E0EC3B /* XPathQuery.m */; };
+		96CD28E11F6AE5DF00E0EC3B /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CD28E01F6AE5DF00E0EC3B /* libxml2.tbd */; };
 		96DA509B1F6841B60067E97B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DA509A1F6841B60067E97B /* main.m */; };
 		96DA509E1F6841B60067E97B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DA509D1F6841B60067E97B /* AppDelegate.m */; };
 		96DA50A11F6841B60067E97B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DA50A01F6841B60067E97B /* ViewController.m */; };
@@ -16,6 +21,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		96CD28D11F6ADCA600E0EC3B /* page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = page.html; sourceTree = "<group>"; };
+		96CD28D41F6AE58D00E0EC3B /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		96CD28D51F6AE58D00E0EC3B /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		96CD28D61F6AE58D00E0EC3B /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		96CD28D71F6AE58D00E0EC3B /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		96CD28D81F6AE58D00E0EC3B /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		96CD28D91F6AE58D00E0EC3B /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		96CD28DE1F6AE5C900E0EC3B /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		96CD28E01F6AE5DF00E0EC3B /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		96DA50961F6841B60067E97B /* ReadWebViewData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadWebViewData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DA509A1F6841B60067E97B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		96DA509C1F6841B60067E97B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,17 +47,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96CD28E11F6AE5DF00E0EC3B /* libxml2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96CD28D31F6AE58D00E0EC3B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				96CD28D41F6AE58D00E0EC3B /* TFHpple.h */,
+				96CD28D51F6AE58D00E0EC3B /* TFHpple.m */,
+				96CD28D61F6AE58D00E0EC3B /* TFHppleElement.h */,
+				96CD28D71F6AE58D00E0EC3B /* TFHppleElement.m */,
+				96CD28D81F6AE58D00E0EC3B /* XPathQuery.h */,
+				96CD28D91F6AE58D00E0EC3B /* XPathQuery.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		96CD28DD1F6AE5C900E0EC3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				96CD28E01F6AE5DF00E0EC3B /* libxml2.tbd */,
+				96CD28DE1F6AE5C900E0EC3B /* libxml2.2.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		96DA508D1F6841B50067E97B = {
 			isa = PBXGroup;
 			children = (
 				96DA50981F6841B60067E97B /* ReadWebViewData */,
 				96DA50971F6841B60067E97B /* Products */,
+				96CD28DD1F6AE5C900E0EC3B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +96,7 @@
 		96DA50981F6841B60067E97B /* ReadWebViewData */ = {
 			isa = PBXGroup;
 			children = (
+				96CD28D31F6AE58D00E0EC3B /* Classes */,
 				96DA509C1F6841B60067E97B /* AppDelegate.h */,
 				96DA509D1F6841B60067E97B /* AppDelegate.m */,
 				96DA509F1F6841B60067E97B /* ViewController.h */,
@@ -66,6 +105,7 @@
 				96DA50A51F6841B60067E97B /* Assets.xcassets */,
 				96DA50A71F6841B60067E97B /* LaunchScreen.storyboard */,
 				96DA50AA1F6841B60067E97B /* Info.plist */,
+				96CD28D11F6ADCA600E0EC3B /* page.html */,
 				96DA50991F6841B60067E97B /* Supporting Files */,
 			);
 			path = ReadWebViewData;
@@ -138,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96DA50A91F6841B60067E97B /* LaunchScreen.storyboard in Resources */,
+				96CD28D21F6ADCA600E0EC3B /* page.html in Resources */,
 				96DA50A61F6841B60067E97B /* Assets.xcassets in Resources */,
 				96DA50A41F6841B60067E97B /* Main.storyboard in Resources */,
 			);
@@ -153,6 +194,9 @@
 				96DA50A11F6841B60067E97B /* ViewController.m in Sources */,
 				96DA509E1F6841B60067E97B /* AppDelegate.m in Sources */,
 				96DA509B1F6841B60067E97B /* main.m in Sources */,
+				96CD28DA1F6AE58D00E0EC3B /* TFHpple.m in Sources */,
+				96CD28DC1F6AE58D00E0EC3B /* XPathQuery.m in Sources */,
+				96CD28DB1F6AE58D00E0EC3B /* TFHppleElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +316,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = ReadWebViewData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.develop.dmitry.library.ReadWebViewData;
@@ -283,6 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = ReadWebViewData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.develop.dmitry.library.ReadWebViewData;
@@ -309,6 +355,7 @@
 				96DA50AF1F6841B60067E97B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
