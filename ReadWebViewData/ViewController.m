@@ -11,23 +11,23 @@
 #import <WebKit/WebKit.h>
 #import "TFHpple.h"
 
-static NSString * const loadDataBaseUrl = @"https://alfabank.ru/about/";
-
-static NSString * const uploadDataBaseUrl = @"https://alfabank.ru/about/";
-
+static NSString * const loadDataBaseUrl = @"https://alfabank.ru/currency/";
 static NSString * const buttonTitleForLoadData = @"Загрузить страницу";
 static NSString * const buttonTitleForSendData = @"Отправить данные";
 
-@interface ViewController ()
+static NSString * const XPathQueryTemplate = @"//tr[@class='tr %@']/td[@class='type %@']";
+static const NSArray *currencyList;
+static const NSArray *modeList;
+
+@interface ViewController () <WKNavigationDelegate>
 
 @property (nonatomic, strong) TFHpple *doc;
 
-@property (nonatomic, strong) WKWebView *wkWebView;
-
+@property (weak, nonatomic) IBOutlet UIView *webViewContainer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
+@property (nonatomic, strong) WKWebView *wkWebView;
 @property (assign, nonatomic, getter=isWebDataLoaded) BOOL webDataLoaded;
 
 @end
@@ -38,9 +38,17 @@ static NSString * const buttonTitleForSendData = @"Отправить данны
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    currencyList = @[@"usd", @"eur", @"gbp", @"chf"];
+    modeList = @[@"buy", @"sell"];
+
     
     self.activityIndicator.hidesWhenStopped = YES;
     [self tuneMainButton];
+    
+    self.wkWebView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds];
+    [self.webViewContainer addSubview:self.wkWebView];
+    self.wkWebView.navigationDelegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,32 +60,26 @@ static NSString * const buttonTitleForSendData = @"Отправить данны
 - (void)loadData:(id)sender {
     [self.activityIndicator startAnimating];
     [self prvt_setTitleForButton];
-    
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:loadDataBaseUrl]]];
+
+    [self.wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:loadDataBaseUrl]]];
 }
 
 - (void)uploadData:(id)sender {
-    NSLog(@"uploadData");
-    
+    [self prvt_parseDataFromWebViewContent];
 }
 
 #pragma mark - UIWebViewDelegate
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    self.webDataLoaded = NO;
+    [self.activityIndicator stopAnimating];
+    [self tuneMainButton];
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     self.webDataLoaded = YES;
     [self.activityIndicator stopAnimating];
     [self tuneMainButton];
-
-    NSLog(@"loaded");
-    
-//    NSCachedURLResponse* response = [[NSURLCache sharedURLCache] cachedResponseForRequest:[webView request]];
-//    NSData* data = [response data];
-//    TFHpple *doc       = [[TFHpple alloc] initWithHTMLData:data];
-//    NSArray *elements  = [doc searchWithXPathQuery:@"//div[@class='promo-block-inner']"];
-//    TFHppleElement *el = [elements objectAtIndex:0];
-//    NSDictionary *dic = [el valueForKey:@"node"];
-//    NSString *cont = [dic objectForKey:@"nodeContent"];
-//    NSLog(@"cont = [%@]", cont);
 }
 
 #pragma mark - Private
@@ -107,6 +109,34 @@ static NSString * const buttonTitleForSendData = @"Отправить данны
     [self.mainButton addTarget:self
                         action:actualAction
               forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)prvt_parseDataFromWebViewContent {
+    NSString *jsCode = @"document.documentElement.outerHTML.toString()";
+    [self.wkWebView evaluateJavaScript:jsCode
+                     completionHandler:^(NSString * _Nullable result, NSError * _Nullable error) {
+                         
+                         NSData *nsdata = [result dataUsingEncoding:NSUnicodeStringEncoding];
+                         TFHpple *documentForQuery = [[TFHpple alloc] initWithHTMLData:nsdata];
+                         NSMutableDictionary *parseResult = [@{} mutableCopy];
+                         
+                         for (NSString *currency in currencyList) {
+                             parseResult[currency] = [@{} mutableCopy];
+                             
+                             for (NSString *mode in modeList) {
+                                 NSString *query = [NSString stringWithFormat:XPathQueryTemplate, currency, mode];
+                                 NSArray *elementsList = [documentForQuery searchWithXPathQuery:query];
+                                 if (elementsList.count) {
+                                     TFHppleElement *element = [elementsList objectAtIndex:0];
+                                     NSDictionary *dic = [element valueForKey:@"node"];
+                                     NSString *content = [dic objectForKey:@"nodeContent"];
+                                     [parseResult[currency] setValue:content forKey:mode];
+                                 }
+                             }
+                         }
+                         
+                         NSLog(@"%@", parseResult);
+                     }];
 }
 
 @end

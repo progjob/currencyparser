@@ -21,13 +21,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPd-3G-Y6Z">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="613"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="09U-Xq-cDP"/>
-                                </connections>
-                            </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmI-kQ-rT6">
                                 <rect key="frame" x="0.0" y="614" width="375" height="53"/>
                                 <subviews>
@@ -48,23 +41,26 @@
                                     <constraint firstAttribute="trailing" secondItem="EwW-ii-0Gh" secondAttribute="trailing" constant="8" id="x2z-VM-jFf"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cyA-R6-519">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="612"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="SPd-3G-Y6Z" secondAttribute="bottom" constant="54" id="96S-Pw-dKV"/>
-                            <constraint firstAttribute="trailing" secondItem="SPd-3G-Y6Z" secondAttribute="trailing" id="Ne5-Yo-IUp"/>
-                            <constraint firstItem="SPd-3G-Y6Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YvH-jg-Ud5"/>
+                            <constraint firstItem="cyA-R6-519" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="2Tk-C3-VjD"/>
+                            <constraint firstAttribute="trailing" secondItem="cyA-R6-519" secondAttribute="trailing" id="A9j-f6-SuZ"/>
+                            <constraint firstItem="jmI-kQ-rT6" firstAttribute="top" secondItem="cyA-R6-519" secondAttribute="bottom" constant="2" id="Dq8-CC-k5i"/>
+                            <constraint firstItem="cyA-R6-519" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="S5b-6E-PDC"/>
                             <constraint firstItem="jmI-kQ-rT6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cqb-mm-aN7"/>
-                            <constraint firstItem="SPd-3G-Y6Z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="izz-a4-5Kd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jmI-kQ-rT6" secondAttribute="bottom" id="owB-3R-QyX"/>
                             <constraint firstAttribute="trailing" secondItem="jmI-kQ-rT6" secondAttribute="trailing" id="qRI-ZW-ofk"/>
-                            <constraint firstItem="jmI-kQ-rT6" firstAttribute="top" secondItem="SPd-3G-Y6Z" secondAttribute="bottom" constant="1" id="vu2-Te-7cy"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="Br7-h2-TIO" id="luW-82-ntA"/>
                         <outlet property="mainButton" destination="EwW-ii-0Gh" id="wbu-Rk-Fbt"/>
-                        <outlet property="webView" destination="SPd-3G-Y6Z" id="gwr-QY-nWy"/>
+                        <outlet property="webViewContainer" destination="cyA-R6-519" id="sfk-J3-Q0Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
