@@ -7,21 +7,17 @@
 //
 
 #import "ViewController.h"
-
 #import <WebKit/WebKit.h>
-#import "TFHpple.h"
+
+#import "ExchangeRateParser.h"
+#import "DataUploader.h"
 
 static NSString * const loadDataBaseUrl = @"https://alfabank.ru/currency/";
+static NSString * const getDomTreejavaScriptCode = @"document.documentElement.outerHTML.toString()";
 static NSString * const buttonTitleForLoadData = @"Загрузить страницу";
 static NSString * const buttonTitleForSendData = @"Отправить данные";
 
-static NSString * const XPathQueryTemplate = @"//tr[@class='tr %@']/td[@class='type %@']";
-static const NSArray *currencyList;
-static const NSArray *modeList;
-
 @interface ViewController () <WKNavigationDelegate>
-
-@property (nonatomic, strong) TFHpple *doc;
 
 @property (weak, nonatomic) IBOutlet UIView *webViewContainer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -38,17 +34,9 @@ static const NSArray *modeList;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    currencyList = @[@"usd", @"eur", @"gbp", @"chf"];
-    modeList = @[@"buy", @"sell"];
-
     
-    self.activityIndicator.hidesWhenStopped = YES;
-    [self tuneMainButton];
-    
-    self.wkWebView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds];
-    [self.webViewContainer addSubview:self.wkWebView];
-    self.wkWebView.navigationDelegate = self;
+    [self prvt_tuneMainButton];
+    [self prvt_tuneWebView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,26 +53,47 @@ static const NSArray *modeList;
 }
 
 - (void)uploadData:(id)sender {
-    [self prvt_parseDataFromWebViewContent];
+    [self prvt_sendCurrenciesValues];
 }
 
 #pragma mark - UIWebViewDelegate
 
-- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    self.webDataLoaded = NO;
-    [self.activityIndicator stopAnimating];
-    [self tuneMainButton];
-}
-
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     self.webDataLoaded = YES;
     [self.activityIndicator stopAnimating];
-    [self tuneMainButton];
+    [self prvt_tuneMainButton];
+}
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    self.webDataLoaded = NO;
+    [self.activityIndicator stopAnimating];
+    [self prvt_tuneMainButton];
 }
 
 #pragma mark - Private
 
-- (void)tuneMainButton {
+- (void)prvt_sendCurrenciesValues {
+    [self.wkWebView evaluateJavaScript:getDomTreejavaScriptCode
+                     completionHandler:^(NSString * _Nullable content, NSError * _Nullable error) {
+                         ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
+                         [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
+                             
+//                             NSLog(@"%@", valuesList);
+                             DataUploader* dataUploader = [[DataUploader alloc] init];
+                             [dataUploader uploadData];
+                             
+                         }];
+                     }];
+}
+
+- (void)prvt_tuneWebView {
+    self.wkWebView = [[WKWebView alloc] initWithFrame:self.webViewContainer.frame];
+    [self.webViewContainer addSubview:self.wkWebView];
+    self.wkWebView.navigationDelegate = self;
+    self.wkWebView.autoresizingMask = UIViewAutoresizingFlexibleHeight + UIViewAutoresizingFlexibleWidth;
+}
+
+- (void)prvt_tuneMainButton {
     [self prvt_setTitleForButton];
     [self prvt_setActionForButton];
 }
@@ -109,34 +118,6 @@ static const NSArray *modeList;
     [self.mainButton addTarget:self
                         action:actualAction
               forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)prvt_parseDataFromWebViewContent {
-    NSString *jsCode = @"document.documentElement.outerHTML.toString()";
-    [self.wkWebView evaluateJavaScript:jsCode
-                     completionHandler:^(NSString * _Nullable result, NSError * _Nullable error) {
-                         
-                         NSData *nsdata = [result dataUsingEncoding:NSUnicodeStringEncoding];
-                         TFHpple *documentForQuery = [[TFHpple alloc] initWithHTMLData:nsdata];
-                         NSMutableDictionary *parseResult = [@{} mutableCopy];
-                         
-                         for (NSString *currency in currencyList) {
-                             parseResult[currency] = [@{} mutableCopy];
-                             
-                             for (NSString *mode in modeList) {
-                                 NSString *query = [NSString stringWithFormat:XPathQueryTemplate, currency, mode];
-                                 NSArray *elementsList = [documentForQuery searchWithXPathQuery:query];
-                                 if (elementsList.count) {
-                                     TFHppleElement *element = [elementsList objectAtIndex:0];
-                                     NSDictionary *dic = [element valueForKey:@"node"];
-                                     NSString *content = [dic objectForKey:@"nodeContent"];
-                                     [parseResult[currency] setValue:content forKey:mode];
-                                 }
-                             }
-                         }
-                         
-                         NSLog(@"%@", parseResult);
-                     }];
 }
 
 @end

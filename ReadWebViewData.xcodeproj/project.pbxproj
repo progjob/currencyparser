@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96CD28D21F6ADCA600E0EC3B /* page.html in Resources */ = {isa = PBXBuildFile; fileRef = 96CD28D11F6ADCA600E0EC3B /* page.html */; };
+		0A2B8CDF1F6C61CE00306AE4 /* ExchangeRateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8CDE1F6C61CE00306AE4 /* ExchangeRateParser.m */; };
+		0A2B8CE31F6C623400306AE4 /* ExchangeRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8CE21F6C623400306AE4 /* ExchangeRate.m */; };
+		0A2B8CE61F6C807F00306AE4 /* DataUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8CE51F6C807F00306AE4 /* DataUploader.m */; };
 		96CD28DA1F6AE58D00E0EC3B /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CD28D51F6AE58D00E0EC3B /* TFHpple.m */; };
 		96CD28DB1F6AE58D00E0EC3B /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CD28D71F6AE58D00E0EC3B /* TFHppleElement.m */; };
 		96CD28DC1F6AE58D00E0EC3B /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CD28D91F6AE58D00E0EC3B /* XPathQuery.m */; };
@@ -21,7 +23,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		96CD28D11F6ADCA600E0EC3B /* page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = page.html; sourceTree = "<group>"; };
+		0A2B8CDD1F6C61CE00306AE4 /* ExchangeRateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRateParser.h; sourceTree = "<group>"; };
+		0A2B8CDE1F6C61CE00306AE4 /* ExchangeRateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeRateParser.m; sourceTree = "<group>"; };
+		0A2B8CE11F6C623400306AE4 /* ExchangeRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRate.h; sourceTree = "<group>"; };
+		0A2B8CE21F6C623400306AE4 /* ExchangeRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeRate.m; sourceTree = "<group>"; };
+		0A2B8CE41F6C807F00306AE4 /* DataUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUploader.h; sourceTree = "<group>"; };
+		0A2B8CE51F6C807F00306AE4 /* DataUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUploader.m; sourceTree = "<group>"; };
 		96CD28D41F6AE58D00E0EC3B /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
 		96CD28D51F6AE58D00E0EC3B /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
 		96CD28D61F6AE58D00E0EC3B /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
@@ -54,7 +61,73 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		96CD28D31F6AE58D00E0EC3B /* Classes */ = {
+		0A2B8CD81F6C604700306AE4 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				96DA509C1F6841B60067E97B /* AppDelegate.h */,
+				96DA509D1F6841B60067E97B /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		0A2B8CD91F6C608100306AE4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96DA50A21F6841B60067E97B /* Main.storyboard */,
+				96DA50A71F6841B60067E97B /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		0A2B8CDA1F6C60BB00306AE4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				96DA509F1F6841B60067E97B /* ViewController.h */,
+				96DA50A01F6841B60067E97B /* ViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		0A2B8CDB1F6C60C300306AE4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				96CD28D31F6AE58D00E0EC3B /* XMLParser */,
+				0A2B8CE01F6C61D700306AE4 /* ExchangeRate */,
+				0A2B8CE71F6C808400306AE4 /* DataUploader */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		0A2B8CDC1F6C60D000306AE4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				96DA50A51F6841B60067E97B /* Assets.xcassets */,
+				96DA50AA1F6841B60067E97B /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		0A2B8CE01F6C61D700306AE4 /* ExchangeRate */ = {
+			isa = PBXGroup;
+			children = (
+				0A2B8CE11F6C623400306AE4 /* ExchangeRate.h */,
+				0A2B8CE21F6C623400306AE4 /* ExchangeRate.m */,
+				0A2B8CDD1F6C61CE00306AE4 /* ExchangeRateParser.h */,
+				0A2B8CDE1F6C61CE00306AE4 /* ExchangeRateParser.m */,
+			);
+			name = ExchangeRate;
+			sourceTree = "<group>";
+		};
+		0A2B8CE71F6C808400306AE4 /* DataUploader */ = {
+			isa = PBXGroup;
+			children = (
+				0A2B8CE41F6C807F00306AE4 /* DataUploader.h */,
+				0A2B8CE51F6C807F00306AE4 /* DataUploader.m */,
+			);
+			name = DataUploader;
+			sourceTree = "<group>";
+		};
+		96CD28D31F6AE58D00E0EC3B /* XMLParser */ = {
 			isa = PBXGroup;
 			children = (
 				96CD28D41F6AE58D00E0EC3B /* TFHpple.h */,
@@ -64,6 +137,7 @@
 				96CD28D81F6AE58D00E0EC3B /* XPathQuery.h */,
 				96CD28D91F6AE58D00E0EC3B /* XPathQuery.m */,
 			);
+			name = XMLParser;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -96,16 +170,11 @@
 		96DA50981F6841B60067E97B /* ReadWebViewData */ = {
 			isa = PBXGroup;
 			children = (
-				96CD28D31F6AE58D00E0EC3B /* Classes */,
-				96DA509C1F6841B60067E97B /* AppDelegate.h */,
-				96DA509D1F6841B60067E97B /* AppDelegate.m */,
-				96DA509F1F6841B60067E97B /* ViewController.h */,
-				96DA50A01F6841B60067E97B /* ViewController.m */,
-				96DA50A21F6841B60067E97B /* Main.storyboard */,
-				96DA50A51F6841B60067E97B /* Assets.xcassets */,
-				96DA50A71F6841B60067E97B /* LaunchScreen.storyboard */,
-				96DA50AA1F6841B60067E97B /* Info.plist */,
-				96CD28D11F6ADCA600E0EC3B /* page.html */,
+				0A2B8CD81F6C604700306AE4 /* AppDelegate */,
+				0A2B8CDB1F6C60C300306AE4 /* Model */,
+				0A2B8CDA1F6C60BB00306AE4 /* Controller */,
+				0A2B8CD91F6C608100306AE4 /* View */,
+				0A2B8CDC1F6C60D000306AE4 /* Resources */,
 				96DA50991F6841B60067E97B /* Supporting Files */,
 			);
 			path = ReadWebViewData;
@@ -178,7 +247,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				96DA50A91F6841B60067E97B /* LaunchScreen.storyboard in Resources */,
-				96CD28D21F6ADCA600E0EC3B /* page.html in Resources */,
 				96DA50A61F6841B60067E97B /* Assets.xcassets in Resources */,
 				96DA50A41F6841B60067E97B /* Main.storyboard in Resources */,
 			);
@@ -191,12 +259,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A2B8CE31F6C623400306AE4 /* ExchangeRate.m in Sources */,
 				96DA50A11F6841B60067E97B /* ViewController.m in Sources */,
 				96DA509E1F6841B60067E97B /* AppDelegate.m in Sources */,
 				96DA509B1F6841B60067E97B /* main.m in Sources */,
 				96CD28DA1F6AE58D00E0EC3B /* TFHpple.m in Sources */,
 				96CD28DC1F6AE58D00E0EC3B /* XPathQuery.m in Sources */,
 				96CD28DB1F6AE58D00E0EC3B /* TFHppleElement.m in Sources */,
+				0A2B8CDF1F6C61CE00306AE4 /* ExchangeRateParser.m in Sources */,
+				0A2B8CE61F6C807F00306AE4 /* DataUploader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
