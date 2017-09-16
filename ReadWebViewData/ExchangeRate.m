@@ -30,4 +30,32 @@
     
     return self;
 }
+
+- (NSDictionary *)dictionarySerialize {
+    return @{
+             @"value" : self.value,
+             @"currency" : [self prvt_currencyTypeToString],
+             @"operation" : [self prvt_operationTypeToString],
+            };
+}
+
+#pragma mark - Private
+
+- (NSString *)prvt_currencyTypeToString {
+    return [@{
+              @(ExchangeRateCurrencyTypeCHF) : @"swiss frank",
+              @(ExchangeRateCurrencyTypeEUR) : @"euro",
+              @(ExchangeRateCurrencyTypeGBP) : @"ound sterling",
+              @(ExchangeRateCurrencyTypeUSD) : @"dollar"
+              } objectForKey:[NSNumber numberWithUnsignedInteger:self.operationType]];
+}
+
+
+- (NSString *)prvt_operationTypeToString {
+    return [@{
+              @(ExchangeRateOperationTypeBuy) : @"buy",
+              @(ExchangeRateOperationTypeSell ) : @"sell"
+              } objectForKey:[NSNumber numberWithUnsignedInteger:self.operationType]];
+}
+
 @end

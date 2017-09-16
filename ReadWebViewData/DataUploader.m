@@ -7,27 +7,29 @@
 //
 
 #import "DataUploader.h"
+static NSString * const uploadDataBaseUrl = @"http://localHost:8080/uploadData";
 
 @implementation DataUploader
 
-- (void)uploadData {
-    NSURL *url = [NSURL URLWithString:@"http://localHost:8080/data"];
+- (void)uploadData:(id)uploadData
+withCompetionBlock:(DataUploaderOperationComplete)completion {
+    NSURL *url = [NSURL URLWithString:uploadDataBaseUrl];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
     
-    NSDictionary *dictionary = @{@"key1": @"value1"};
     NSError *error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
-                                                   options:kNilOptions error:&error];
     
+    NSData *data = [NSJSONSerialization dataWithJSONObject:uploadData
+                                                   options:kNilOptions
+                                                     error:&error];
     if (!error) {
         NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
                                                                    fromData:data
                                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
+                                                              completion();
                                                           }];
         [uploadTask resume];
     }

@@ -48,12 +48,14 @@ static const NSArray *operationTypeList;
             NSArray *elementsList = [documentForQuery searchWithXPathQuery:query];
             if (elementsList.count) {
                 NSString *value = [[elementsList[0] valueForKey:@"node"] objectForKey:@"nodeContent"];
+                
                 ExchangeRateCurrencyType currencyType = [self prvt_getCurrencyTypeFromCurrencyString:currency];
                 ExchangeRateOperationType operationType = [self prvt_getOperationTypeFromOperationString:operation];
+                
                 ExchangeRate *exchangeRate = [[ExchangeRate alloc] initWithValue:value
                                                                     currencyType:currencyType
                                                                    operationType:operationType];
-                [exchangeRatesList addObject:exchangeRate];
+                [exchangeRatesList addObject:exchangeRate.dictionarySerialize];
             }
         }
     }
@@ -73,17 +75,17 @@ static const NSArray *operationTypeList;
 
 - (NSDictionary *)prvt_currencyValuesToTypeMapping {
     return @{
-             @"chf" :@(ExchangeRateCurrencyTypeEUR),
-             @"eur" :@(ExchangeRateCurrencyTypeEUR),
-             @"gbp" :@(ExchangeRateCurrencyTypeGBP),
-             @"usd" :@(ExchangeRateCurrencyTypeUSD),
+             @"chf" : @(ExchangeRateCurrencyTypeCHF),
+             @"eur" : @(ExchangeRateCurrencyTypeEUR),
+             @"gbp" : @(ExchangeRateCurrencyTypeGBP),
+             @"usd" : @(ExchangeRateCurrencyTypeUSD),
              };
 }
 
 - (NSDictionary *)prvt_operationValuesToTypeMapping {
     return @{
-             @"buy" :@(ExchangeRateOperationTypeBuy),
-             @"sell" :@(ExchangeRateOperationTypeSell)
+             @"buy" : @(ExchangeRateOperationTypeBuy),
+             @"sell" : @(ExchangeRateOperationTypeSell)
              };
 }
 

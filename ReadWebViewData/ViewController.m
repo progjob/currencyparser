@@ -10,13 +10,14 @@
 #import <WebKit/WebKit.h>
 
 #import "ExchangeRateParser.h"
+
+#import "DataLoader.h"
 #import "DataUploader.h"
 
-static NSString * const loadDataBaseUrl = @"https://alfabank.ru/currency/";
 static NSString * const getDomTreejavaScriptCode = @"document.documentElement.outerHTML.toString()";
 
-static NSString * const buttonTitleForLoadData = @"Загрузить страницу";
-static NSString * const buttonTitleForSendData = @"Отправить данные";
+static NSString * const buttonTitleForLoadData = @"Load Data";
+static NSString * const buttonTitleForUploadData = @"Upload Data";
 
 @interface ViewController () <WKNavigationDelegate>
 
@@ -48,9 +49,15 @@ static NSString * const buttonTitleForSendData = @"Отправить данны
 
 - (void)loadData:(id)sender {
     [self.activityIndicator startAnimating];
-    [self prvt_setTitleForButton];
+    [self prvt_tuneMainButton];
 
-    [self.wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:loadDataBaseUrl]]];
+    DataLoader *dataLoader = [[DataLoader alloc] init];
+    [dataLoader loadDataWithCompetionBlock:^(NSData *data, NSString *MIMEType, NSString *characterEncodingName, NSURL *baseURL) {
+        [self.wkWebView loadData:data
+                        MIMEType:MIMEType
+           characterEncodingName:characterEncodingName
+                         baseURL:baseURL];
+    }];
 }
 
 - (void)uploadData:(id)sender {
@@ -79,7 +86,10 @@ static NSString * const buttonTitleForSendData = @"Отправить данны
                          ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
                          [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
                              DataUploader* dataUploader = [[DataUploader alloc] init];
-                             [dataUploader uploadData];
+                             [dataUploader uploadData:valuesList withCompetionBlock:^{
+                                 
+                                 NSLog(@"Data Uploaded Successfully");
+                             }];
                          }];
                      }];
 }
@@ -97,7 +107,7 @@ static NSString * const buttonTitleForSendData = @"Отправить данны
 }
 
 - (void)prvt_setTitleForButton {
-    NSString *title = !self.isWebDataLoaded ? buttonTitleForLoadData : buttonTitleForSendData;
+    NSString *title = !self.isWebDataLoaded ? buttonTitleForLoadData : buttonTitleForUploadData;
     if (self.activityIndicator.isAnimating) {
         title = @"";
     }

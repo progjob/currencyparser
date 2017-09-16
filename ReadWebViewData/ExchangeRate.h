@@ -30,4 +30,6 @@ typedef NS_ENUM(NSInteger, ExchangeRateOperationType) {
                  currencyType:(ExchangeRateCurrencyType)currencyType
                 operationType:(ExchangeRateOperationType)operationType;
 
+- (NSDictionary *)dictionarySerialize;
+
 @end

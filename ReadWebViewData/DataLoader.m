@@ -12,15 +12,16 @@ static NSString * const loadDataBaseUrl = @"https://alfabank.ru/currency/";
 
 @implementation DataLoader
 
-- (void)loadData {
+- (void)loadDataWithCompetionBlock:(DataLoaderOperationComplete)completion {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:loadDataBaseUrl]];
     request.HTTPMethod = @"GET";
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                                    
-                                                    NSLog(@"load end");
+                                                completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {                                                    
+                                                    if (!error) {
+                                                        completion(data, @"text/html", nil, request.URL);
+                                                    }
                                                 }];
     [dataTask resume];
 }

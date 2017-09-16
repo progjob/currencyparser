@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^DataUploaderOperationComplete)(void);
+
 @interface DataUploader : NSObject
 
-- (void)uploadData;
+- (void)uploadData:(id)uploadData
+withCompetionBlock:(DataUploaderOperationComplete)completion;
 
 @end

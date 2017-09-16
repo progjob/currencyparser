@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^DataLoaderOperationComplete)(NSData *data, NSString *MIMEType, NSString *characterEncodingName, NSURL *baseURL);
+
 @interface DataLoader : NSObject
 
-- (void)loadData;
+- (void)loadDataWithCompetionBlock:(DataLoaderOperationComplete)completion;
 
 @end
