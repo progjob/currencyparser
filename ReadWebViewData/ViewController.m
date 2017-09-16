@@ -60,7 +60,16 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
 }
 
 - (void)uploadData:(id)sender {
-    [self prvt_sendCurrenciesValues];
+    [self.wkWebView parseContentWithComletion:^(id  _Nullable content, NSError * _Nullable error) {
+        ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
+        [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
+            DataUploader* dataUploader = [[DataUploader alloc] init];
+            [dataUploader uploadData:valuesList
+                  withCompetionBlock:^{
+                      NSLog(@"Data Uploaded Successfully");
+                  }];
+        }];
+    }];
 }
 
 #pragma mark - UIWebViewDelegate
@@ -78,20 +87,6 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
 }
 
 #pragma mark - Private
-
-- (void)prvt_sendCurrenciesValues {
-    [self.wkWebView parseContentWithComletion:^(id  _Nullable content, NSError * _Nullable error) {
-        ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
-        [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
-            DataUploader* dataUploader = [[DataUploader alloc] init];
-            [dataUploader uploadData:valuesList
-                  withCompetionBlock:^{
-                      NSLog(@"Data Uploaded Successfully");
-                  }];
-        }];
-
-    }];
-}
 
 - (void)prvt_tuneWebView {
     self.wkWebView = [[WKWebView alloc] initWithFrame:self.webViewContainer.frame];
