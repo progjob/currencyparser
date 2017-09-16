@@ -45,7 +45,7 @@
     return [@{
               @(ExchangeRateCurrencyTypeCHF) : @"swiss frank",
               @(ExchangeRateCurrencyTypeEUR) : @"euro",
-              @(ExchangeRateCurrencyTypeGBP) : @"ound sterling",
+              @(ExchangeRateCurrencyTypeGBP) : @"pound sterling",
               @(ExchangeRateCurrencyTypeUSD) : @"dollar"
               } objectForKey:[NSNumber numberWithUnsignedInteger:self.operationType]];
 }
