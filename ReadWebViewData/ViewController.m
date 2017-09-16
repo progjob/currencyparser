@@ -14,6 +14,7 @@
 
 static NSString * const loadDataBaseUrl = @"https://alfabank.ru/currency/";
 static NSString * const getDomTreejavaScriptCode = @"document.documentElement.outerHTML.toString()";
+
 static NSString * const buttonTitleForLoadData = @"Загрузить страницу";
 static NSString * const buttonTitleForSendData = @"Отправить данные";
 
@@ -77,11 +78,8 @@ static NSString * const buttonTitleForSendData = @"Отправить данны
                      completionHandler:^(NSString * _Nullable content, NSError * _Nullable error) {
                          ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
                          [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
-                             
-//                             NSLog(@"%@", valuesList);
                              DataUploader* dataUploader = [[DataUploader alloc] init];
                              [dataUploader uploadData];
-                             
                          }];
                      }];
 }

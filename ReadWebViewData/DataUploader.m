@@ -11,8 +11,7 @@
 @implementation DataUploader
 
 - (void)uploadData {
-    
-    NSURL *url = [NSURL URLWithString:@"http://localHost:8080"];
+    NSURL *url = [NSURL URLWithString:@"http://localHost:8080/data"];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
     
@@ -28,10 +27,8 @@
         NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
                                                                    fromData:data
                                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                              
-                                                              NSLog(@"end");
-                                                              
-                                                                   }];
+
+                                                          }];
         [uploadTask resume];
     }
 }
