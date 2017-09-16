@@ -47,7 +47,7 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
 
 #pragma mark - Actions
 
-- (void)loadData:(id)sender {
+- (void)loadData {
     [self.activityIndicator startAnimating];
     [self prvt_tuneMainButton];
 
@@ -60,7 +60,7 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
     }];
 }
 
-- (void)uploadData:(id)sender {
+- (void)uploadData {
     [self.wkWebView parseContentWithComletion:^(id  _Nullable content, NSError * _Nullable error) {
         ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
         [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
@@ -114,12 +114,12 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
 }
 
 - (void)prvt_setActionForButton {
-    SEL previousAction = self.isWebDataLoaded ? @selector(loadData:) : @selector(uploadData:);
+    SEL previousAction = self.isWebDataLoaded ? @selector(loadData) : @selector(uploadData);
     [self.mainButton removeTarget:self
                            action:previousAction
                  forControlEvents:UIControlEventTouchUpInside];
     
-    SEL actualAction = !self.isWebDataLoaded ? @selector(loadData:) : @selector(uploadData:);
+    SEL actualAction = !self.isWebDataLoaded ? @selector(loadData) : @selector(uploadData);
     [self.mainButton addTarget:self
                         action:actualAction
               forControlEvents:UIControlEventTouchUpInside];
