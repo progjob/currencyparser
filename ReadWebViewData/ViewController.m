@@ -51,7 +51,7 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
     [self prvt_tuneMainButton];
 
     DataLoader *dataLoader = [[DataLoader alloc] init];
-    [dataLoader loadDataWithCompetionBlock:^(NSData *data, NSString *MIMEType, NSString *characterEncodingName, NSURL *baseURL) {
+    [dataLoader loadWebContentWithCompetionBlock:^(NSData *data, NSString *MIMEType, NSString *characterEncodingName, NSURL *baseURL) {
         [self.wkWebView loadData:data
                         MIMEType:MIMEType
            characterEncodingName:characterEncodingName

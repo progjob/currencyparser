@@ -12,6 +12,6 @@ typedef void (^DataLoaderOperationComplete)(NSData *data, NSString *MIMEType, NS
 
 @interface DataLoader : NSObject
 
-- (void)loadDataWithCompetionBlock:(DataLoaderOperationComplete)completion;
+- (void)loadWebContentWithCompetionBlock:(DataLoaderOperationComplete)completion;
 
 @end

@@ -12,7 +12,7 @@ static NSString * const loadDataBaseUrl = @"https://alfabank.ru/currency/";
 
 @implementation DataLoader
 
-- (void)loadDataWithCompetionBlock:(DataLoaderOperationComplete)completion {
+- (void)loadWebContentWithCompetionBlock:(DataLoaderOperationComplete)completion {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:loadDataBaseUrl]];
     request.HTTPMethod = @"GET";
