@@ -7,14 +7,13 @@
 //
 
 #import "ViewController.h"
+
 #import <WebKit/WebKit.h>
+#import "WKWebView+HTMLContentString.h"
 
 #import "ExchangeRateParser.h"
-
 #import "DataLoader.h"
 #import "DataUploader.h"
-
-static NSString * const getDomTreejavaScriptCode = @"document.documentElement.outerHTML.toString()";
 
 static NSString * const buttonTitleForLoadData = @"Load Data";
 static NSString * const buttonTitleForUploadData = @"Upload Data";
@@ -81,17 +80,17 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
 #pragma mark - Private
 
 - (void)prvt_sendCurrenciesValues {
-    [self.wkWebView evaluateJavaScript:getDomTreejavaScriptCode
-                     completionHandler:^(NSString * _Nullable content, NSError * _Nullable error) {
-                         ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
-                         [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
-                             DataUploader* dataUploader = [[DataUploader alloc] init];
-                             [dataUploader uploadData:valuesList withCompetionBlock:^{
-                                 
-                                 NSLog(@"Data Uploaded Successfully");
-                             }];
-                         }];
-                     }];
+    [self.wkWebView parseContentWithComletion:^(id  _Nullable content, NSError * _Nullable error) {
+        ExchangeRateParser *exchangeRateParser = [[ExchangeRateParser alloc] initWithContentString:content];
+        [exchangeRateParser grabCurrenciesValuesWithCompletionBlock:^(NSArray *valuesList) {
+            DataUploader* dataUploader = [[DataUploader alloc] init];
+            [dataUploader uploadData:valuesList
+                  withCompetionBlock:^{
+                      NSLog(@"Data Uploaded Successfully");
+                  }];
+        }];
+
+    }];
 }
 
 - (void)prvt_tuneWebView {
