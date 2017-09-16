@@ -15,6 +15,7 @@
 #import "DataLoader.h"
 #import "DataUploader.h"
 
+static NSString * const buttonTitleForWaitingData = @"";
 static NSString * const buttonTitleForLoadData = @"Load Data";
 static NSString * const buttonTitleForUploadData = @"Upload Data";
 
@@ -66,7 +67,9 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
             DataUploader* dataUploader = [[DataUploader alloc] init];
             [dataUploader uploadData:valuesList
                   withCompetionBlock:^{
+                      
                       NSLog(@"Data Uploaded Successfully");
+                      
                   }];
         }];
     }];
@@ -103,7 +106,7 @@ static NSString * const buttonTitleForUploadData = @"Upload Data";
 - (void)prvt_setTitleForButton {
     NSString *title = !self.isWebDataLoaded ? buttonTitleForLoadData : buttonTitleForUploadData;
     if (self.activityIndicator.isAnimating) {
-        title = @"";
+        title = buttonTitleForWaitingData;
     }
     
     [self.mainButton setTitle:title
